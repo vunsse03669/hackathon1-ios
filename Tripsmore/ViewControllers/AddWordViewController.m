@@ -74,4 +74,19 @@
         
     }
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+
+-(void)dismissKeyboard {
+    [_tfWord resignFirstResponder];
+    [_tfTranslate resignFirstResponder];
+}
 @end

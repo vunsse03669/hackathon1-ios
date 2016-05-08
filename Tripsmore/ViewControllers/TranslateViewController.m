@@ -30,8 +30,8 @@
     [DatabaseService shareInstance];
     [self btnEng2PaClicked:self.btnEng2Pa];
     
-    
-    }
+   
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -119,8 +119,22 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+
+-(void)dismissKeyboard {
+    [_tfInput resignFirstResponder];
+}
 
 @end
