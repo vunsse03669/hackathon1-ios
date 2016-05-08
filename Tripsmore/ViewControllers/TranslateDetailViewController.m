@@ -11,6 +11,7 @@
 
 @interface TranslateDetailViewController ()
 
+@property NSString *fa;
 @end
 
 @implementation TranslateDetailViewController
@@ -18,8 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = LocalizedString(@"Translation Detail");
+    _fa = [[NSString alloc]init];
+    
+    _fa =[[DatabaseService shareInstance] getDataByWord:self.word];
+    
+    NSLog(@"%@",self.fa);
+    //NSLog(@"%ld",self.word.isEng2Pa);
+    self.word.favorites = _fa;
     
     [self refreshWordData];
+    
     
     if ([@"1" isEqualToString:self.word.favorites]) {
         self.btnFavourite.selected = YES;
@@ -39,6 +48,7 @@
     self.lblDescription.text = self.word.strDescription;
     self.lblResult.text = self.word.result;
     self.lblEdited.text = self.word.edited;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,9 +58,12 @@
 
 - (IBAction)btnFavouriteClicked:(UIButton *)sender {
     if (sender.selected) {
+        self.word.favorites = @"0";
+    }else{
         self.word.favorites = @"1";
-    }
-    [[DatabaseService shareInstance] update:self.word changeEditTime:NO];
+            }
+    NSLog(@"%@",self.word.favorites);
+    [[DatabaseService shareInstance] update:self.word changeEditTime:YES];
     sender.selected = !sender.selected;
     if (!sender.selected) {
         [self.view makeToast:LocalizedString(@"Removed from favourite") duration:2.0 position:nil];

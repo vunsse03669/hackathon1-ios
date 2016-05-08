@@ -19,4 +19,7 @@
 - (BOOL) insert:(Words *)word changeEditTime:(BOOL)changeEditTime;
 - (BOOL) deleteW:(Words *)word;
 - (void) resetDB;
+
+- (NSString *) getDataByWord:(Words *)word;
+
 @end

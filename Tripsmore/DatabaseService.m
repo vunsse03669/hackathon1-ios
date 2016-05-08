@@ -59,6 +59,21 @@ static id _instance = nil;
     self.database = [[FMDatabase alloc] initWithPath:pathInDocument];
 }
 
+- (NSString *) getDataByWord:(Words *)word;{
+    
+    
+    [self.database open];
+    
+    NSString *str = [[NSString alloc]init];
+    NSString *strQuery = @"select favorites from table_eng_pa where word = ?";
+    FMResultSet *rs = [_database executeQuery:strQuery,word.word];
+    if([rs next]){
+        str = [rs stringForColumn:@"favorites"];
+    }
+    
+    return str;
+}
+
 - (BOOL) insert:(Words *)word changeEditTime:(BOOL)changeEditTime;
 {
     [self.database open];
@@ -104,12 +119,13 @@ static id _instance = nil;
         strDate = word.edited;
     }
     
-    NSString *strQuery = [NSString stringWithFormat:@"UPDATE SET word='%@', result='%@', description='%@', favorites='%@', edited='%@' WHERE _id=%ld", strDB,
-                          SAFE_STR(word.word),
+    NSString *strQuery = [NSString stringWithFormat:@"UPDATE %@ SET result='%@', description='%@', favorites='%@', edited='%@' WHERE word='%@'", strDB,
+                          
                           SAFE_STR(word.result),
                           SAFE_STR(word.strDescription),
                           SAFE_STR(word.favorites),
-                          SAFE_STR(strDate), word.mId];
+                          SAFE_STR(strDate),
+                          SAFE_STR(word.word)];
     BOOL success = [self.database executeUpdate:strQuery];
     if (!success) {
         NSLog(@"Error %d: %@", [self.database lastErrorCode], [self.database lastErrorMessage]);
