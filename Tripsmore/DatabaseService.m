@@ -69,6 +69,8 @@ static id _instance = nil;
     FMResultSet *rs = [_database executeQuery:strQuery,word.word];
     if([rs next]){
         str = [rs stringForColumn:@"favorites"];
+    }else{
+        return @"xxx";
     }
     
     return str;
