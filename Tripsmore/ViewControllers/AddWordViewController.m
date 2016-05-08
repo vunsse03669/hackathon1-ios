@@ -23,6 +23,22 @@
         self.tfTranslate.text = self.word.result;
     }
     self.title = LocalizedString(@"Add Word");
+    
+    
+    // HIDE KEYBOARD
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    // tap.cancelsTouchesInView = NO;
+}
+
+// TAP TO DIHE KEYBOARD
+-(void)dismissKeyboard
+{
+    [_tfWord resignFirstResponder];
+    [_tfTranslate resignFirstResponder];
 }
 
 - (void)backAction:(id)sender
@@ -75,18 +91,4 @@
     }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField;
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
-    
-    [self.view addGestureRecognizer:tap];
-}
-
-
--(void)dismissKeyboard {
-    [_tfWord resignFirstResponder];
-    [_tfTranslate resignFirstResponder];
-}
 @end

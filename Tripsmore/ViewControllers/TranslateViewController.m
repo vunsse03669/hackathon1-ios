@@ -30,7 +30,13 @@
     [DatabaseService shareInstance];
     [self btnEng2PaClicked:self.btnEng2Pa];
     
-   
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
+    [self.tableView addGestureRecognizer:tap];
+    tap.cancelsTouchesInView = NO;
+}
+
+- (IBAction)closeKeyboard:(id)sender {
+    [_tfInput resignFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,6 +46,7 @@
     self.btnClear.backgroundColor = [StaticData sharedInstance].mainColor;
     [self doSearch:self.tfInput.text];
 }
+
 - (void)backAction:(id)sender
 {
     //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -112,29 +119,8 @@
     TranslateDetailViewController *vc = [[Utils mainStoryboard] instantiateViewControllerWithIdentifier:@"TranslateDetailViewController"];
     vc.word = word;
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-// fix
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
     
-    return YES;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField;
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
-    
-    [self.view addGestureRecognizer:tap];
-}
-
-
--(void)dismissKeyboard {
-    [_tfInput resignFirstResponder];
-}
 
 @end
