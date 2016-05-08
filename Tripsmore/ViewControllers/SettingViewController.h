@@ -8,7 +8,7 @@
 
 #import "BasedTableViewController.h"
 
-@interface SettingViewController : BasedTableViewController
+@interface SettingViewController : BasedTableViewController <UIAlertViewDelegate>
 
 - (IBAction)btnThemeColorClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnThemeColor;

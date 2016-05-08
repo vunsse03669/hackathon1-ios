@@ -8,12 +8,14 @@
 
 #import "ColorChooserViewController.h"
 #import "LeftMenuViewController.h"
+#import "SplashViewController.h"
 
 @interface ColorChooserViewController ()
 
 @end
 
 @implementation ColorChooserViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,7 +42,7 @@
                            @"#EC407A",
                            @"#9C27B0",
                            @"#673AB7",
-                           @"#F44336",
+                           @"#3F51B5",
                            @"#2196F3",
                            @"#03A9F4",
                            @"#00BCD4",
@@ -52,7 +54,7 @@
                            @"#FF9800",
                            @"#FF5722",
                            @"#795548",
-                           @"#03A9F4",
+                           @"#607DBB",
                            @"#000000"];
     
     self.numberRowInSection = @{@(0): @(self.arrColorName.count)};
@@ -76,6 +78,7 @@
     lblText.text = self.arrColorName[indexPath.row];
     viewColor.backgroundColor = [Utils colorFromHex:self.arrColorValue[indexPath.row]];
     
+    
     return cell;
 }
 
@@ -85,8 +88,13 @@
     NSString *strColor = self.arrColorValue[indexPath.row];
     [[NSUserDefaults standardUserDefaults] setObject:strColor forKey:kUD_MainColor];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [StaticData sharedInstance].mainColor = [Utils colorFromHex:self.arrColorValue[indexPath.row]];
+    
+    
     [[LeftMenuViewController shareInstance] refreshColor];
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 @end

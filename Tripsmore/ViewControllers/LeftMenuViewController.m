@@ -42,26 +42,17 @@ static id instance = nil;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 5;
-}
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
     UIImageView *img = (UIImageView *)[cell.contentView viewWithTag:101];
     UILabel *lblTitle = (UILabel *)[cell.contentView viewWithTag:102];
     UILabel *lblNum = (UILabel *)[cell.contentView viewWithTag:103];
     lblNum.layer.cornerRadius = 1.0f;
     lblNum.hidden = YES;
-
+    
     if (indexPath.row == 0) {
         img.image = [UIImage imageNamed:@"ic_translate.png"];
         lblTitle.text = LocalizedString(@"Translate");
@@ -78,9 +69,6 @@ static id instance = nil;
         img.image = [UIImage imageNamed:@"ic_about.png"];
         lblTitle.text = LocalizedString(@"About");
     }
-  
- 
-
     
     return cell;
 }
@@ -109,6 +97,17 @@ static id instance = nil;
     }
     
     self.previousRow = indexPath.row;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger numberRow = [[self.numberRowInSection objectForKey:@(section)]integerValue];
+    return 5;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 @end

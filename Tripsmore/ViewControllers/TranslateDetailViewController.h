@@ -8,7 +8,7 @@
 
 #import "BasedTableViewController.h"
 
-@interface TranslateDetailViewController : BasedTableViewController
+@interface TranslateDetailViewController : BasedTableViewController <UIAlertViewDelegate>
 
 @property Words *word;
 

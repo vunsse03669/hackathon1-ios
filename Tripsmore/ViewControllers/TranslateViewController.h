@@ -8,7 +8,7 @@
 
 #import "BasedTableViewController.h"
 
-@interface TranslateViewController : BasedTableViewController
+@interface TranslateViewController : BasedTableViewController <SWRevealViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *viewInput;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnEng2Pa;

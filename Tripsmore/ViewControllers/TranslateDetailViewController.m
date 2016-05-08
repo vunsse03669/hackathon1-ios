@@ -65,7 +65,17 @@
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:postItems applicationActivities:nil];
     
     //if iPhone
-    [self presentViewController:controller animated:YES completion:nil];
+    //[self presentViewController:controller animated:YES completion:nil];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    //if iPad
+    else {
+        // Change Rect to position Popover
+        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:controller];
+        [popup presentPopoverFromRect:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/4, 0, 0)inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)btnEditClicked:(id)sender {
@@ -85,6 +95,18 @@
         [self.navigationController pushViewController:vc animated:YES];
     } else if (buttonIndex == 1) {
         NSLog(@"Delete");
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message" message:@"Do you want to delete this word" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        NSLog(@"zxx");
+        BOOL success = [[DatabaseService shareInstance] deleteW:self.word];
+        if(success){
+            NSLog(@"xxx");
+        }
     }
 }
 

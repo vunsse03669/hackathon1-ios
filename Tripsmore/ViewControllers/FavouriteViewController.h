@@ -9,5 +9,6 @@
 #import "BasedTableViewController.h"
 
 @interface FavouriteViewController : BasedTableViewController
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipe;
 
 @end

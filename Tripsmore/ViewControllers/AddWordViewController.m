@@ -22,7 +22,7 @@
         self.tfWord.text = self.word.word;
         self.tfTranslate.text = self.word.result;
     }
-    self.title = LocalizedString(@"Edit");
+    self.title = LocalizedString(@"Add Word");
 }
 
 - (void)backAction:(id)sender
@@ -43,6 +43,7 @@
     self.tfTranslate.text = @"";
     self.tfWord.text = @"";
 }
+
 - (IBAction)btnSaveClicked:(id)sender {
     Words *word = [[Words alloc] init];
     if (self.word != nil) {
@@ -54,12 +55,13 @@
     if (self.word == nil) {
         BOOL result = [[DatabaseService shareInstance] insert:word changeEditTime:YES];
         if (result) {
+            NSLog(@"123");
             self.tfTranslate.text = @"";
             self.tfWord.text = @"";
             [self.view makeToast:LocalizedString(@"Inserted word successfully") duration:2.0 position:nil];
         } else {
             [self.view makeToast:LocalizedString(@"Inserted word failed!") duration:2.0 position:nil];
-            
+            NSLog(@"1243");
         }
     } else {
         BOOL result = [[DatabaseService shareInstance] update:word changeEditTime:YES];

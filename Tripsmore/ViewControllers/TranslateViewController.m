@@ -9,7 +9,14 @@
 #import "TranslateViewController.h"
 #import "TranslateDetailViewController.h"
 
+
+#import "LeftMenuViewController.h"
+
+@class SWRevealViewController;
+
 @interface TranslateViewController ()
+
+@property LeftMenuViewController* leftMenu;
 
 @end
 
@@ -22,7 +29,9 @@
     [self.view addGestureRecognizer:[SWRevealViewController shareInstance].panGestureRecognizer];
     [DatabaseService shareInstance];
     [self btnEng2PaClicked:self.btnEng2Pa];
-}
+    
+    
+    }
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -33,8 +42,16 @@
 }
 - (void)backAction:(id)sender
 {
-    [[SWRevealViewController shareInstance] revealToggle:self.btnBack];
-}
+    //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+   // SWRevealViewControllerDelegate
+    
+     [[SWRevealViewController shareInstance] revealToggle:self.btnBack];
+    [self.view addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    
+
+   // [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -96,4 +113,14 @@
     vc.word = word;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+// fix
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 @end

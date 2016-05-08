@@ -8,6 +8,7 @@
 
 #import "FavouriteViewController.h"
 #import "TranslateDetailViewController.h"
+#import "LeftMenuViewController.h"
 
 @interface FavouriteViewController ()
 
@@ -18,7 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = LocalizedString(@"Favourites");
+    [self.view addGestureRecognizer:[SWRevealViewController shareInstance].panGestureRecognizer];
     [self refreshData];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,5 +68,6 @@
     vc.word = word;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 @end
